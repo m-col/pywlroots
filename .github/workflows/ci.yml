@@ -95,6 +95,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt-get install -y --no-install-recommends \
+            libxkbcommon-dev
       - name: Set environment variables
         run: |
           echo "CPATH=${HOME}/wayland/include" >> $GITHUB_ENV
@@ -130,6 +135,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt-get install -y --no-install-recommends \
+            libxkbcommon-dev
       - name: Set environment variables
         run: |
           echo "CPATH=${HOME}/wayland/include" >> $GITHUB_ENV
