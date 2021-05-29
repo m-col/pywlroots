@@ -13,7 +13,7 @@ jobs:
       matrix:
         wayland-version: ["1.19.0"]
         wayland-protocols-version: ["1.21"]
-        wlroots-version: ["0.13.0", master]
+        wlroots-version: ["8ca2b4cf49055eabcd2499bf3811d356d769bded", master]
     steps:
       - name: Install dependencies
         run: |
@@ -150,6 +150,12 @@ jobs:
       - name: Run unit tests
         continue-on-error: ${{ matrix.wlroots-version == 'master' }}
         run: pytest -Wall
+        env:
+          WLR_BACKENDS: "headless"
+          WLR_HEADLESS_OUTPUTS: "2"
+          WLR_LIBINPUT_NO_DEVICES: "1"
+          WLR_RENDERER_ALLOW_SOFTWARE: "1"
+          WLR_RENDERER: "pixman"
   flake8-test:
     name: Python ${{ matrix.python-version}} flake8 tests
     runs-on: ubuntu-latest
